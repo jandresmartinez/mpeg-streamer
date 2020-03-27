@@ -8,8 +8,6 @@ import org.taktik.mpegts.sources.MultiMTSSource;
 import org.taktik.mpegts.sources.ResettableMTSSource;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 public class StreamerTestLocal {
 	public static void main(String[] args) throws Exception {
@@ -27,14 +25,15 @@ public class StreamerTestLocal {
 		MTSSink transport = UDPTransport.builder()
 				//.setAddress("239.222.1.1")
 				.setAddress("127.0.0.1")
-				.setPort(6500)
+				.setPort(5500)
 				.setSoTimeout(5000)
 				.setTtl(2)
 				.build();
 
 
-		ResettableMTSSource ts1 = MTSSources.from(new File("C:\\Users\\Jorge\\Videos\\wager_high.ts"));
-		ResettableMTSSource ts2 = MTSSources.from(new File("C:\\Users\\Jorge\\Videos\\OCS.ts"));
+		ResettableMTSSource ts1 = MTSSources.from(new File("C:\\Users\\Jorge\\Videos\\transcode\\OCS.ts"));
+		ResettableMTSSource ts2 = MTSSources.from(new File("C:\\Users\\Jorge\\Videos\\transcode\\agent.ts"));
+        ResettableMTSSource ts3 = MTSSources.from(new File("C:\\Users\\Jorge\\Videos\\transcode\\cosmos.ts"));
 
 
         //MTSSource sourcePiped = MTSSources.from(input);
@@ -45,15 +44,15 @@ public class StreamerTestLocal {
 		//ResettableMTSSource source = MTSSources.from(new File("C:\\Nahual\\files\\NOC.ts"));
 
 
-        InputStream is=new FileInputStream(new File("C:\\Users\\Jorge\\Videos\\Docker\\player-data\\files\\agent.ts"));
-        MTSSource source = MTSSources.from(is);
+       // InputStream is=new FileInputStream(new File("C:\\Users\\Jorge\\Videos\\Docker\\player-data\\files\\agent.ts"));
+        //MTSSource source = MTSSources.from(is);
 
 
         // Infinite looping, continuity fix
        MTSSource playLoop = MultiMTSSource.builder()
-                .setSources(ts1,ts1)
+                .setSources(ts1,ts2,ts3)
                 .loop()
-                .setFixContinuity(true)
+                .setFixContinuity(false)
                 .build();
 
 

@@ -5,9 +5,10 @@ import org.taktik.mpegts.sinks.UDPTransport;
 import org.taktik.mpegts.sources.MTSSource;
 import org.taktik.mpegts.sources.MTSSources;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class StreamerTest {
 	public static void main(String[] args) throws Exception {
@@ -29,9 +30,11 @@ public class StreamerTest {
 				.setSoTimeout(5000)
 				.setTtl(2)
 				.build();
+*/
 
-
-		ResettableMTSSource ts1 = MTSSources.from(new File("C:\\Users\\Jorge\\Videos\\OCS_sub.ts"));*/
+		//ResettableMTSSource ts1 = MTSSources.from(new File(args[2]));
+        //ResettableMTSSource ts2 = MTSSources.from(new File(args[3]));
+        //ResettableMTSSource ts3 = MTSSources.from(new File(args[4]));
 		//ResettableMTSSource ts2 = MTSSources.from(new File("/home/media-files/agent.ts"));
 
 
@@ -42,15 +45,15 @@ public class StreamerTest {
 
 		//ResettableMTSSource source = MTSSources.from(new File("C:\\Nahual\\files\\NOC.ts"));
 
-		InputStream is=new FileInputStream(new File(args[2]));
+		InputStream is= Files.newInputStream(Paths.get(args[2]), StandardOpenOption.READ);
 		MTSSource source = MTSSources.from(is);
 
 
 
 
         // Infinite looping, continuity fix
-       /*MTSSource playLoop = MultiMTSSource.builder()
-                .setSources(ts2,ts2)
+      /* MTSSource playLoop = MultiMTSSource.builder()
+                .setSources(ts1,ts2,ts3)
                 .loop()
                 .setFixContinuity(true)
                 .build();*/

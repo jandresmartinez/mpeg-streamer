@@ -94,7 +94,7 @@ public class ContinuityFixer {
 		lastDTSsOfPreviousSource.putAll(dtss);
 		lastPacketsOfPreviousSource.putAll(allPackets);
 		//pcrPackets.clear();
-		ptss.clear();
+		//ptss.clear();
 		dtss.clear();
 		allPackets.clear();
 		firstSource = false;
@@ -185,7 +185,7 @@ public class ContinuityFixer {
 				if (!firstSource)
 					rewritePCR(tsPacket);
 				i++;
-				if (i==20||i>10000){
+				if (i==200||i>10000){
 					i=0;
 					if (tsRate==0)
 					 estimateBitRate(tsPacket);

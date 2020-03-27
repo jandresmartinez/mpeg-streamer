@@ -278,7 +278,7 @@ public class Streamer {
 	public static class StreamerBuilder {
 		private MTSSink sink;
 		private MTSSource source;
-		private int bufferSize = 1000;
+		private int bufferSize = 5000;
 
 		public StreamerBuilder setSink(MTSSink sink) {
 			this.sink = sink;
